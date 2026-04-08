@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cadastro Cordeirinhos</title>
+<div class="container">
+        <h2>🧸 Cadastro Cordeirinhos</h2>
+    <style>
+        body {
+            background-image: url("{% static 'background-cordeirinhos.jpeg' %}"); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f0f8ff;
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            color: #000000; /* Corrigido para preto absoluto para máximo contraste */
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            border-top: 10px solid #ffcc00;
+        }
+        h2 {
+            text-align: center;
+            color: #1e90ff;
+            font-weight: 900; /* Deixou o título ainda mais grosso */
+        }
+        
+        /* --- ESTILOS PARA OS NOMES DOS CAMPOS (LABELS) --- */
+        label {
+            display: block;
+            font-weight: bold; /* Negrito para facilitar a leitura */
+            font-size: 16px;
+            margin-top: 10px;
+            color: #000000;
+        }
+
+        .input-infantil, input[type="text"], input[type="file"], input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 2px solid #add8e6;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            color: #000000; /* Texto digitado pelo usuário também em preto */
+            background-color: #fdfdfd;
+        }
+        .input-infantil:focus, input[type="text"]:focus, input[type="file"]:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: #ff8c00;
+            background-color: #fff;
+        }
+        button {
+            background-color: #32cd32;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #228b22;
+        }
+        .alerta-sucesso { 
+            color: #28a745; 
+            font-weight: bold; 
+            text-align: center; 
+            list-style: none;
+            padding: 0;
+            font-size: 18px;
+        }
+        
+        /* --- ESTILOS DO RODAPÉ --- */
+        .rodape {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 2px dashed #add8e6;
+            text-align: center;
+            font-size: 14px; /* Aumentei um pouco a fonte */
+            color: #222222; /* Cinza bem escuro, quase preto */
+            font-weight: bold; /* Mais peso na fonte do rodapé */
+        }
+        .rodape a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .rodape a:hover {
+            color: #0000cd;
+            text-decoration: underline;
+        }
+        .rodape p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🧸 Cadastro Infantil</h2>
+        
+        {% if messages %}
+            <ul class="alerta-sucesso">
+                {% for message in messages %}
+                    <li>✨ {{ message }} ✨</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            {{ form.as_p }} 
+            <button type="submit">Salvar Cadastro!</button>
+        </form>
+
+        <div class="rodape">
+            <p>
+                <a href="https://www.instagram.com/cordeirinhos_tijuca2?igsh=MW1tNXhvbTVsajVyYg==" target="_blank">📷 Instagram do Departamento</a>
+            </p>
+            <p>© 2026 Departamento Infantil. Todos os direitos reservados.</p>
+            <p>
+                Desenvolvido com carinho por <a href="https://www.instagram.com/geysa.log?igsh=N3lpZWR0bDd0ZHAy" target="_blank">👩‍💻 Geysa.log</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
