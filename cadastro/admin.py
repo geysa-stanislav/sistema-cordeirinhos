@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from .models import Crianca
 
 @admin.register(Crianca)
@@ -22,3 +23,25 @@ class CriancaAdmin(admin.ModelAdmin):
             'fields': ('nome_responsavel', 'telefone', 'telefone_alternativo')
         }),
     )
+
+# --- NOVA PARTE: Configuração do Histórico de Ações (Auditoria) ---
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    # O que vai aparecer na tabela de listagem do painel
+    list_display = ('action_time', 'user', 'content_type', 'object_repr', 'action_flag', 'change_message')
+    
+    # Filtros laterais úteis para encontrar o que alguém fez em um dia específico ou por usuário
+    list_filter = ('action_time', 'user', 'action_flag')
+    
+    # Pesquisa para achar alterações em registros específicos
+    search_fields = ('object_repr', 'change_message')
+    
+    # Travas de segurança: O Histórico é apenas leitura (não pode criar, editar ou excluir)
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
